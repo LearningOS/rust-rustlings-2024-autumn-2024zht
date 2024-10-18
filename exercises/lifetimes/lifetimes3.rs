@@ -5,11 +5,10 @@
 // Execute `rustlings hint lifetimes3` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
 
-struct Book {
-    author: &str,
-    title: &str,
+struct Book<'a> {
+    author: &'a str,
+    title: &'a str,
 }
 
 fn main() {
@@ -18,4 +17,6 @@ fn main() {
     let book = Book { author: &name, title: &title };
 
     println!("{} by {}", book.title, book.author);
+
+    // 由于 name 和 title 在这里仍然有效，所以 book 中的引用也是有效的
 }

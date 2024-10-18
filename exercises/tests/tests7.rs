@@ -34,22 +34,23 @@
 // Execute `rustlings hint tests7` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
-
-fn main() {}
-
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
     fn test_success() {
+        // Get the current timestamp in seconds since the Unix epoch
         let timestamp = std::time::SystemTime::now()
             .duration_since(std::time::UNIX_EPOCH)
-            .unwrap()
+            .expect("Time went backwards")
             .as_secs();
-        let s = std::env::var("TEST_FOO").unwrap();
-        let e: u64 = s.parse().unwrap();
-        assert!(timestamp >= e && timestamp < e + 10);
+
+        // Get the value from the environment variable TEST_FOO
+        let s = std::env::var("TEST_FOO").expect("TEST_FOO environment variable not set");
+        let e: u64 = s.parse().expect("TEST_FOO value is not a valid u64");
+
+        // Assert that the current timestamp is within the range [e, e + 10)
+        assert!(timestamp >= e && timestamp < e + 10, "Timestamp is not within the expected range");
     }
 }
